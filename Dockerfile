@@ -6,13 +6,16 @@ RUN apt-get update \
 		libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN wget https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tar.xz
-RUN tar xvf Python-3.6.2.tar.xz \
-	&& cd Python-3.6.2 \
+ENV py_version="3.6.4"
+ENV py_package="Python-$py_version"
+
+RUN wget https://www.python.org/ftp/python/$py_version/$py_package.tar.xz
+RUN tar xvf $py_package.tar.xz \
+	&& cd $py_package \
 	&& ./configure \
 	&& make altinstall \
-	&& rm /Python-3.6.2.tar.xz
+	&& rm /$py_package.tar.xz
 
-RUN pip3.6 install http://download.pytorch.org/whl/cu75/torch-0.2.0.post3-cp36-cp36m-manylinux1_x86_64.whl \
+RUN pip3.6 install http://download.pytorch.org/whl/cpu/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl \
 	&& pip3.6 install torchvision
 
