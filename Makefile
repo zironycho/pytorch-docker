@@ -1,24 +1,12 @@
-name := zironycho/pytorch
-version := 0.3.1-slim
-
-tags = ${version} latest
-
-default: build
-
 build:
-	@docker build . $(foreach tag, ${tags}, -t ${name}:${tag})
+	@make -C 0.3.1 build
+	@make -C 0.4.0 build
 
 ls:
-	@docker images ${name}
+	@make -C 0.3.1 ls
+	@make -C 0.4.0 ls
 
-run:
-	@docker run --rm -it ${name}:${version} sh
-
-history:
-	@docker history ${name}:${version}
-
-push: $(tags)
-
-$(tags): %:
-	@docker push ${name}:$@
+push:
+	@make -C 0.3.1 push
+	@make -C 0.4.0 push
 
