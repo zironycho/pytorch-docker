@@ -1,4 +1,4 @@
-FROM python:3.6-slim
+FROM python:3.6.7-slim
 
 RUN export DEBIAN_FRONTEND=noninteractive \
   && echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
