@@ -1,5 +1,5 @@
 name := zironycho/pytorch
-version := 1.2.0-slim
+version := 1.2.0-slim-v2
 
 tags = ${version}
 
