@@ -1,23 +1,24 @@
 name := zironycho/pytorch
-version := 1.6.0-slim-py3.7-v1
+tag_cpu := 160-cpu-py37
+tag_gpu := 160-cu102-py37
 
-tags = ${version}
+default: build-cpu build-gpu
 
-default: build
+build-cpu:
+	@docker build . -t ${name}:${tag_cpu} -f Dockerfile
 
-build:
-	@docker build . $(foreach tag, ${tags}, -t ${name}:${tag})
+build-gpu:
+	@docker build . -t ${name}:${tag_gpu} -f Dockerfile.cu102
 
 ls:
 	@docker images ${name}
 
 run:
-	@docker run --rm -it ${name}:${version} sh
+	@docker run --rm -it ${name}:${tag_cpu} sh
 
-history:
-	@docker history ${name}:${version}
+h:
+	@docker history ${name}:${tag_cpu}
+	@docker history ${name}:${tag_gpu}
 
-push: $(tags)
-
-$(tags): %:
-	@docker push ${name}:$@
+push:
+	@docker push ${name}:${tag_cpu} ${name}:${tag_cpu}

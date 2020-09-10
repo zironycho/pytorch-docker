@@ -1,0 +1,72 @@
+version: 2.1
+
+executors:
+  my-executor:
+    environment:
+      IMAGE_NAME: zironycho/pytorch
+      DOCKER_BUILD_PATH: .
+      DOCKER_CPU_FILE_PATH: ./1.6.0/Dockerfile
+      DOCKER_CPU_TAG: 160-cpu-py37
+      DOCKER_GPU_FILE_PATH: ./1.6.0/Dockerfile.cu102
+      DOCKER_GPU_TAG: 160-cu102-py37
+      
+workflows:
+  release-flow:
+    jobs:
+    - build-cpu:
+        context: image-build
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^v.*/
+    - build-gpu:
+        context: image-build
+        filters:
+          branches:
+            ignore: /.*/
+          tags:
+            only: /^v.*/
+
+jobs:
+  build-cpu:
+    executor: my-executor
+    machine: true
+    steps:
+    - checkout
+
+    - run:
+        name: Build images
+        command: |
+          docker build -t $IMAGE_NAME:$DOCKER_CPU_FILE_PATH $DOCKER_BUILD_PATH -f $DOCKER_CPU_FILE_PATH
+
+    - run:
+        name: Login Dockerhub
+        command: |
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+
+    - run:
+        name: Push images
+        command: |
+          docker push $IMAGE_NAME:$DOCKER_CPU_FILE_PATH
+
+  build-gpu:
+    executor: my-executor
+    machine: true
+    steps:
+    - checkout
+
+    - run:
+        name: Build images
+        command: |
+          docker build -t $IMAGE_NAME:$DOCKER_GPU_FILE_PATH $DOCKER_BUILD_PATH -f $DOCKER_GPU_FILE_PATH
+
+    - run:
+        name: Login Dockerhub
+        command: |
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+
+    - run:
+        name: Push images
+        command: |
+          docker push $IMAGE_NAME:$DOCKER_GPU_FILE_PATH
