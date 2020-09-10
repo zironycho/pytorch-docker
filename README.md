@@ -1,9 +1,9 @@
 # docker image about pytorch
 
 ## pytorch 1.6
-ref: [anibali/docker-pytorch](https://github.com/anibali/docker-pytorch)
 
 ### GPU
+ref: [anibali/docker-pytorch](https://github.com/anibali/docker-pytorch)
 * ubuntu 18.04
 * python 3.7
 
