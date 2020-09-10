@@ -38,7 +38,7 @@ jobs:
     - run:
         name: Build images
         command: |
-          docker build -t $IMAGE_NAME:$DOCKER_CPU_FILE_PATH $DOCKER_BUILD_PATH -f $DOCKER_CPU_FILE_PATH
+          docker build -t $IMAGE_NAME:$DOCKER_CPU_TAG $DOCKER_BUILD_PATH -f $DOCKER_CPU_FILE_PATH
 
     - run:
         name: Login Dockerhub
@@ -48,7 +48,7 @@ jobs:
     - run:
         name: Push images
         command: |
-          docker push $IMAGE_NAME:$DOCKER_CPU_FILE_PATH
+          docker push $IMAGE_NAME:$DOCKER_CPU_TAG
 
   build-gpu:
     executor: my-executor
@@ -59,7 +59,7 @@ jobs:
     - run:
         name: Build images
         command: |
-          docker build -t $IMAGE_NAME:$DOCKER_GPU_FILE_PATH $DOCKER_BUILD_PATH -f $DOCKER_GPU_FILE_PATH
+          docker build -t $IMAGE_NAME:$DOCKER_GPU_TAG $DOCKER_BUILD_PATH -f $DOCKER_GPU_FILE_PATH
 
     - run:
         name: Login Dockerhub
@@ -69,4 +69,4 @@ jobs:
     - run:
         name: Push images
         command: |
-          docker push $IMAGE_NAME:$DOCKER_GPU_FILE_PATH
+          docker push $IMAGE_NAME:$DOCKER_GPU_TAG
