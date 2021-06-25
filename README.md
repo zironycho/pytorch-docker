@@ -1,5 +1,16 @@
 # docker image about pytorch
 
+## pytorch 1.9
+
+### GPU
+* ubuntu 18.04
+* python 3.7
+
+### CPU
+* debian slim buster
+* python 3.7
+
+
 ## pytorch 1.6
 
 ### GPU
