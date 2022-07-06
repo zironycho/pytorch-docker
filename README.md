@@ -1,5 +1,18 @@
 # docker image about pytorch
 
+## pytorch 1.12.0
+
+### [CPU](/1.12.0/Dockerfile)
+* debian slim bullseye
+* python 3.8
+
+## pytorch 1.10.0
+
+### [CPU](/1.10.0/Dockerfile)
+* debian slim buster
+* python 3.7
+
+
 ## pytorch 1.9
 
 ### GPU
